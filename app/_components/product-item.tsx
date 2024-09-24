@@ -54,7 +54,9 @@ export const ProductItem = ({ product }: ProductItemProps) => {
             </span>
           )}
         </div>
-        <span>{product.restaurant.name}</span>
+        <span className=" block text-muted-foreground text-xs">
+          {product.restaurant.name}
+        </span>
       </div>
     </div>
   );
