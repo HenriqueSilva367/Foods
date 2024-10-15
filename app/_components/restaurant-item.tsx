@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 type RestaurantItemProp = {
   restaurant: Restaurant;
 };
+
 export const RestaurantItem = async ({ restaurant }: RestaurantItemProp) => {
   return (
     <div className="min-w-[266px] max-w-[266px]">
