@@ -20,7 +20,7 @@ export const ProductImage = ({ product }: ProductImageProps) => {
         src={product?.imageUrl}
         alt={product?.name}
         fill
-        className="object-cover rounded-lg shadow-md"
+        className="object-cover shadow-md"
       />
       <Button
         size="icon"
