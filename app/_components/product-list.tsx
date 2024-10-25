@@ -13,7 +13,7 @@ type ProductListProp = {
   }>[];
 };
 
-export const ProductList = async ({ products }: ProductListProp) => {
+export const ProductList = ({ products }: ProductListProp) => {
   return (
     <>
       <div className="flex overflow-x-scroll [&::-webkit-scrollbar]:hidden gap-4 px-5">
