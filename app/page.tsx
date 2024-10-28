@@ -9,6 +9,7 @@ import { db } from "./_lib/prisma";
 import { PromoBanner } from "./_components/promo-banner";
 import PormoBanner02 from "./assets/promo-banner02.svg";
 import { RestaurantList } from "./_components/restaurant-list";
+
 const Home = async () => {
   const products = await db.product.findMany({
     where: {

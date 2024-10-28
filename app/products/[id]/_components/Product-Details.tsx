@@ -1,16 +1,11 @@
 "use client";
+import { DeliveryInfo } from "@/app/_components/delivery-info";
 import { DiscountBadge } from "@/app/_components/discount-badge";
 import { ProductList } from "@/app/_components/product-list";
 import { Button } from "@/app/_components/ui/button";
-import { Card } from "@/app/_components/ui/card";
 import { calculateProductPrice, formateCurrency } from "@/app/_helpers/price";
 import { Prisma } from "@prisma/client";
-import {
-  BikeIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  TimerIcon,
-} from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -87,31 +82,7 @@ export const ProductDetails = ({
           </Button>
         </div>
       </div>
-      <Card className="flex justify-around py-2 mt-6">
-        <div className="flex flex-col">
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <span>Entrega</span>
-            <BikeIcon size={14} />
-          </div>
-          {Number(product.restaurant.deliveryFee) > 0 ? (
-            <p className="font-semibold">
-              {formateCurrency(Number(product.restaurant.deliveryFee))}
-            </p>
-          ) : (
-            <p className="text-sm font-semibold">Grátis</p>
-          )}
-        </div>
-        <div>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <span>Entrega</span>
-            <TimerIcon />
-          </div>
-          <span className="font-semibold">
-            {Number(product.restaurant.deliveryTimeMinutes)} min
-          </span>
-        </div>
-      </Card>
-
+      <DeliveryInfo restaurant={product.restaurant} />
       <div className="mt-6 space-y-3">
         <h3 className="font-semibold">Sobre</h3>
         <p className="text-sm text-muted-foreground">{product.description}</p>
