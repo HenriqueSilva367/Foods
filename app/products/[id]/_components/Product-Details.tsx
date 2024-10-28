@@ -34,9 +34,9 @@ export const ProductDetails = ({
   const [quantity, setQuantity] = useState(1);
 
   const handleIncreaseQuantityClick = () =>
-    setQuantity((currencyState) => currencyState + 1);
+    setQuantity((currencyState: number) => currencyState + 1);
   const handleDecreaseQuantityClick = () =>
-    setQuantity((currencyState) => {
+    setQuantity((currencyState: number) => {
       if (currencyState === 1) return 1;
       return currencyState - 1;
     });
@@ -119,6 +119,9 @@ export const ProductDetails = ({
       <div className="mt-6 space-y-3">
         <p>Sucos</p>
         <ProductList products={complementaryProducts} />
+      </div>
+      <div className="px-5 mt-6">
+        <Button className="w-full font-semibold">Adicionar a sacola</Button>
       </div>
     </div>
   );
