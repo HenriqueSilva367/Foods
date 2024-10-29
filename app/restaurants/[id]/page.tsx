@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { RestaurantImage } from "./_components/restaurant-image";
 import { StarIcon } from "lucide-react";
 import { DeliveryInfo } from "@/app/_components/delivery-info";
+import { ProductList } from "@/app/_components/product-list";
 
 type RestaurantPageProps = {
   params: {
@@ -11,19 +12,42 @@ type RestaurantPageProps = {
   };
 };
 
-const Restaurantpage = async ({ params: { id } }: RestaurantPageProps) => {
+const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
   const restaurant = await db.restaurant.findUnique({
     where: {
       id,
     },
     include: {
-      categories: true,
+      categories: {
+        include: {
+          Product: {
+            include: {
+              restaurant: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      },
+      Product: {
+        take: 10,
+        include: {
+          restaurant: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
     },
   });
 
   if (!restaurant) {
     return notFound;
   }
+
   return (
     <div>
       <RestaurantImage restaurant={restaurant} />
@@ -39,7 +63,7 @@ const Restaurantpage = async ({ params: { id } }: RestaurantPageProps) => {
           </div>
           <h1 className="font-semibold text-xl">{restaurant.name}</h1>
         </div>
-        <div className="flex gap-[3px] items-center top-2 bg-foreground text-white left-2 py-[2px] px-2 rounded-full bg-white">
+        <div className="flex gap-[3px] items-center top-2 text-white left-2 py-[2px] px-2 rounded-full bg-muted-foreground">
           <StarIcon size={12} className="fill-yellow-400 text-yellow-500" />
           <span className="font-semibold text-xs">5.0</span>
         </div>
@@ -58,8 +82,19 @@ const Restaurantpage = async ({ params: { id } }: RestaurantPageProps) => {
           </div>
         ))}
       </div>
+
+      <div className="mt-6 space-y-4">
+        <h2 className="px-5 font-semibold">Mais Pedidos</h2>
+        <ProductList products={restaurant.Product} />
+      </div>
+      {restaurant.categories.map((category) => (
+        <div className="mt-6 space-y-4" key={category.id}>
+          <h2 className="px-5 font-semibold">{category.name}</h2>
+          <ProductList products={category.Product} />
+        </div>
+      ))}
     </div>
   );
 };
 
-export default Restaurantpage;
+export default RestaurantPage;
