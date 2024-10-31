@@ -21,6 +21,9 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
       categories: {
         include: {
           Product: {
+            where: {
+              restaurantId: id,
+            },
             include: {
               restaurant: {
                 select: {
@@ -51,7 +54,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
   return (
     <div>
       <RestaurantImage restaurant={restaurant} />
-      <div className="flex justify-between items-center px-5 pt-5">
+      <div className="flex justify-between items-center px-5 pt-5 relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white">
         <div className="flex items-center gap-[0.375rem]">
           <div className="relative h-8 w-8">
             <Image
