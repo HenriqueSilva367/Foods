@@ -4,15 +4,20 @@ import { BikeIcon, HeartIcon, StarIcon, TimerIcon } from "lucide-react";
 import { formateCurrency } from "../_helpers/price";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { cn } from "../_lib/utils";
 
 type RestaurantItemProp = {
   restaurant: Restaurant;
+  className?: string;
 };
 
-export const RestaurantItem = async ({ restaurant }: RestaurantItemProp) => {
+export const RestaurantItem = async ({
+  restaurant,
+  className,
+}: RestaurantItemProp) => {
   return (
     <Link
-      className="min-w-[266px] max-w-[266px]"
+      className={cn("min-w-[266px] max-w-[266px]", className)}
       href={`/restaurants/${restaurant.id}`}
     >
       <div className="w-full space-y-3">
